@@ -30,6 +30,9 @@ public class Formato implements Serializable{
     @Column(name = "nome", length = 40, nullable = false)    
     private String nome;
 
+    public Formato() {
+    }
+    
     public Integer getId() {
         return id;
     }

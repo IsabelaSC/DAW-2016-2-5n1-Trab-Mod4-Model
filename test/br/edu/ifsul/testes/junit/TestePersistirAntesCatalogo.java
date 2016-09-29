@@ -1,7 +1,7 @@
 package br.edu.ifsul.testes.junit;
 
-import br.edu.ifsul.modelo.Autor;
-import br.edu.ifsul.modelo.Idioma;
+import br.edu.ifsul.modelo.Catalogo;
+import br.edu.ifsul.modelo.Livraria;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -15,12 +15,12 @@ import static org.junit.Assert.*;
  *
  * @author Isabela
  */
-public class TestePersistirAutor {
+public class TestePersistirAntesCatalogo {
 
     EntityManagerFactory emf;
     EntityManager em;
 
-    public TestePersistirAutor() {
+    public TestePersistirAntesCatalogo() {
     }
 
     @Before
@@ -40,11 +40,11 @@ public class TestePersistirAutor {
     public void teste() {
         boolean exception = false;
         try {
-            Autor a = new Autor();
-            a.setNome("Joker W");
-            a.setBibliografia("What you serious?");
+            Catalogo c = new Catalogo();
+            c.setNome("Fixo");
+            c.setDescricao("Apenas para consultas locais.");
             em.getTransaction().begin();
-            em.persist(a);
+            em.persist(c);
             em.getTransaction().commit();
         } catch (Exception e) {
             exception = true;
@@ -52,7 +52,6 @@ public class TestePersistirAutor {
         }
         //compara o resultado esperado (falso)com o que ocorreu
         Assert.assertEquals(false, exception);
-
     }
 
 }

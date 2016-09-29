@@ -40,8 +40,8 @@ public class TestePersistirIdioma {
         boolean exception = false;
         try {
             Idioma i = new Idioma();
-            i.setNome("Portugues");
-            i.setSigla("Pt");            
+            i.setNome("Coreano");
+            i.setSigla("KR");            
             em.getTransaction().begin();
             em.persist(i);
             em.getTransaction().commit();

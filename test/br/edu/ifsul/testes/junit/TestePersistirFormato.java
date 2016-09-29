@@ -1,7 +1,6 @@
 package br.edu.ifsul.testes.junit;
 
 import br.edu.ifsul.modelo.Formato;
-import br.edu.ifsul.modelo.Idioma;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

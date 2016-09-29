@@ -5,12 +5,9 @@ import java.util.Calendar;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,23 +21,22 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED) //cada um tem sua tabela
-@Table
+@Table(name = "livroBasico")
 public class LivroBasico implements Serializable {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String isbn; //string ñ utiliza sequence generator 
+    @Column(name = "isbn", nullable = false, unique = true)           
+    private String isbn; //string ñ utiliza sequence generator     
     @Length(max = 40, message = "O titulo não pode ter mais que {max} caracteres.")
     @NotNull(message = "O titulo não deve ser nulo.")
     @NotBlank(message = "O titulo não pode ser em branco.")
-    @Column(name = "nome", nullable = false, length = 40)
+    @Column(name = "titulo", nullable = false, length = 40)
     private String titulo;
     @Column(name = "resumo", columnDefinition = "text")
     private String resumo;
     @Length(max = 40, message = "A editora não pode ter mais que {max} caracteres.")
     @NotNull(message = "A editora não deve ser nulo.")
     @NotBlank(message = "A editora não pode ficar em branco.")
-    @Column(name = "nome", nullable = false, length = 40)
+    @Column(name = "editora", nullable = false, length = 40)
     private String editora;
     @NotNull(message = "A data de publicação deve ser informada.")
     @Temporal(TemporalType.DATE)
@@ -92,8 +88,8 @@ public class LivroBasico implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.isbn);
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.isbn);
         return hash;
     }
 
@@ -112,4 +108,5 @@ public class LivroBasico implements Serializable {
         return true;
     }
 
+    
 }
