@@ -47,20 +47,22 @@ public class TestePersistirLivro {
     public void teste() {
         boolean exception = false;
         try {
+            
+            //LivroBasico lb = em.find(LivroBasico.class, 4);            
             Livro l = new Livro();
-            l.setIsbn("WHAT");
+            l.setIsbn("GREEN4");
             l.setTitulo("TWD");
             l.setEditora("FOX");
-            l.setResumo("Apocalipse zumbi"); 
-            l.setDataPublicacao(new GregorianCalendar(2006, Calendar.MARCH,10));
+            l.setResumo("Apocalipse zumbi");
+            l.setDataPublicacao(new GregorianCalendar(2006, Calendar.MARCH, 10));            
             l.setCodigoBarras("10000");
             l.setNumeroPaginas(200);
             l.setAtivo(true);
-            l.setDataCadastro(new GregorianCalendar(2016, Calendar.FEBRUARY,20));
+            l.setDataCadastro(new GregorianCalendar(2016, Calendar.FEBRUARY, 20));
             l.setValor(99.00);
-            l.setFormato(em.find(Formato.class, 3));
-            l.setIdioma(em.find(Idioma.class, l));
-            l.setCatalogo(em.find(Catalogo.class, l));
+            l.setIdioma(em.find(Idioma.class, 5));
+            l.setFormato(em.find(Formato.class, 4));
+            l.setCatalogo(em.find(Catalogo.class, 3));
             em.getTransaction().begin();
             em.persist(l);
             em.getTransaction().commit();

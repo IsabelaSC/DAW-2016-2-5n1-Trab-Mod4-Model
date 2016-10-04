@@ -1,6 +1,5 @@
 package br.edu.ifsul.testes.junit;
 
-import br.edu.ifsul.modelo.Catalogo;
 import br.edu.ifsul.modelo.Livraria;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,12 +14,12 @@ import static org.junit.Assert.*;
  *
  * @author Isabela
  */
-public class TestePersistirAntesCatalogo {
+public class TestePersistirLivraria {
 
     EntityManagerFactory emf;
     EntityManager em;
 
-    public TestePersistirAntesCatalogo() {
+    public TestePersistirLivraria() {
     }
 
     @Before
@@ -40,11 +39,11 @@ public class TestePersistirAntesCatalogo {
     public void teste() {
         boolean exception = false;
         try {
-            Catalogo c = new Catalogo();
-            c.setNome("Fixo");
-            c.setDescricao("Apenas para consultas locais.");
+            Livraria l = new Livraria();
+            l.setNome("Saraiva");
+            l.setSite("www.saraiva.com.br");
             em.getTransaction().begin();
-            em.persist(c);
+            em.persist(l);
             em.getTransaction().commit();
         } catch (Exception e) {
             exception = true;
@@ -52,6 +51,7 @@ public class TestePersistirAntesCatalogo {
         }
         //compara o resultado esperado (falso)com o que ocorreu
         Assert.assertEquals(false, exception);
+
     }
 
 }

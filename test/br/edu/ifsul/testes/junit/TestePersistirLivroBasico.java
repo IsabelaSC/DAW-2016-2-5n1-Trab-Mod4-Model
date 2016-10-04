@@ -44,15 +44,15 @@ public class TestePersistirLivroBasico {
         boolean exception = false;
         try {
             LivroBasico lb = new LivroBasico();
-            lb.setIsbn("WHAT");
+            lb.setIsbn("VISH");
             lb.setTitulo("TWD");
             lb.setEditora("FOX");
-            lb.setResumo("Apocalipse zumbi");            
-            lb.setDataPublicacao(new GregorianCalendar(2000, Calendar.MARCH,10));
-            
+            lb.setResumo("Apocalipse zumbi");
+            lb.setDataPublicacao(new GregorianCalendar(2000, Calendar.MARCH, 10));
             em.getTransaction().begin();
             em.persist(lb);
             em.getTransaction().commit();
+
         } catch (Exception e) {
             exception = true;
             e.printStackTrace();

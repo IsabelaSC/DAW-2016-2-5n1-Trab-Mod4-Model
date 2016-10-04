@@ -1,9 +1,9 @@
 package br.edu.ifsul.testes.junit;
 
-import br.edu.ifsul.modelo.Livraria;
+import br.edu.ifsul.jpa.EntityManagerUtil;
+import br.edu.ifsul.modelo.Autor;
+import br.edu.ifsul.modelo.LivroBasico;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,44 +14,39 @@ import static org.junit.Assert.*;
  *
  * @author Isabela
  */
-public class TestePersistirAntesLivraria {
+public class TestePersistirAutorias {
 
-    EntityManagerFactory emf;
     EntityManager em;
 
-    public TestePersistirAntesLivraria() {
+    public TestePersistirAutorias() {
     }
 
     @Before
     public void setUp() {
-        emf = Persistence.createEntityManagerFactory("DAW-2016-2-5n1-Trab-Mod4-ModelPU");
-        em = emf.createEntityManager();
-
+        em = EntityManagerUtil.getEntityManager();
     }
 
     @After
     public void tearDown() {
         em.close();
-        emf.close();
     }
 
     @Test
     public void teste() {
-        boolean exception = false;
+        boolean exception = false; // variavel que vai armazenar o resultado do teste
         try {
-            Livraria l = new Livraria();
-            l.setNome("Saraiva");
-            l.setSite("www.saraiva.com.br");
+            LivroBasico lb = em.find(LivroBasico.class, "WHAT");
+            Autor a = em.find(Autor.class, 5);
+            lb.getAutorias().add(a);
             em.getTransaction().begin();
-            em.persist(l);
+            em.persist(lb);
             em.getTransaction().commit();
         } catch (Exception e) {
             exception = true;
             e.printStackTrace();
         }
-        //compara o resultado esperado (falso)com o que ocorreu
+        // comparo o resultado esperado(falso) com o que ocorreu
         Assert.assertEquals(false, exception);
 
     }
-
 }

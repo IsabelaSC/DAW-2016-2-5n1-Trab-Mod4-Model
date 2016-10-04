@@ -1,12 +1,17 @@
 package br.edu.ifsul.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -30,6 +35,16 @@ public class Autor implements Serializable {
     private String nome;
     @Column(name = "bibliografia", columnDefinition = "text")
     private String bibliografia;
+
+    @ManyToMany
+    @JoinTable(name = "autoria",
+            joinColumns
+            = @JoinColumn(name = "autor", referencedColumnName = "id",
+                    nullable = false),
+            inverseJoinColumns
+            = @JoinColumn(name = "livroBasico", referencedColumnName = "isbn",
+                    nullable = false))
+    private List<LivroBasico> autorias = new ArrayList<>();
 
     public Autor() {
     }
@@ -78,6 +93,14 @@ public class Autor implements Serializable {
             return false;
         }
         return true;
+    }
+
+    public List<LivroBasico> getAutorias() {
+        return autorias;
+    }
+
+    public void setAutorias(List<LivroBasico> autorias) {
+        this.autorias = autorias;
     }
 
 }

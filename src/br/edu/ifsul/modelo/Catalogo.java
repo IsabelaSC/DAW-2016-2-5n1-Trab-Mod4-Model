@@ -42,25 +42,23 @@ public class Catalogo implements Serializable {
     @NotBlank(message = "A descrição não pode ficar em branco.")
     @Column(name = "descricao", length = 50, nullable = false)
     private String descricao;
-
+    @OneToMany(mappedBy = "catalogo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Livro> livros = new ArrayList<>();
     @NotNull(message = "A livraria não pode ser nula.")
     @ManyToOne
     @JoinColumn(name = "livraria_id", referencedColumnName = "id", nullable = false)
     private Livraria livraria;
 
-    @OneToMany(mappedBy = "catalogo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Livro> livros = new ArrayList<>();
+    public Catalogo() {
+    }
 
-    public void adicionarLivro(Livro obj) {
-        obj.setCatalogo(this);
-        this.livros.add(obj); //adicionando telefone na lista
+    public void adicionarLivro(Livro index) {
+        index.setCatalogo(this);
+        this.livros.add(index);
     }
 
     public void removerLivro(int index) {
-        this.livros.remove(index);//p/ remover o telefone passa o indice pois ñ possui id
-    }
-
-    public Catalogo() {
+        this.livros.remove(index);
     }
 
     public Integer getId() {
@@ -89,8 +87,8 @@ public class Catalogo implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + Objects.hashCode(this.id);
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -109,20 +107,20 @@ public class Catalogo implements Serializable {
         return true;
     }
 
-    public Livraria getLivraria() {
-        return livraria;
-    }
-
-    public void setLivraria(Livraria livraria) {
-        this.livraria = livraria;
-    }
-
     public List<Livro> getLivros() {
         return livros;
     }
 
     public void setLivros(List<Livro> livros) {
         this.livros = livros;
+    }
+
+    public Livraria getLivraria() {
+        return livraria;
+    }
+
+    public void setLivraria(Livraria livraria) {
+        this.livraria = livraria;
     }
 
 }

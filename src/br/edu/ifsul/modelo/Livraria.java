@@ -38,7 +38,10 @@ public class Livraria implements Serializable {
     @Length(max = 20, message = "O site não pode ter mais de {max} caracteres.")
     @Column(name = "site", length = 20)
     private String site;
+
     @OneToMany(mappedBy = "livraria", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    //orphanRemoval p/ remover todos mesmo com composição
+    //fectType LAZY p/  recuperar só a parte que eu quero - EAGER recupera tudo
     private List<Catalogo> catalogos = new ArrayList<>();
 
     public Livraria() {
@@ -46,7 +49,7 @@ public class Livraria implements Serializable {
 
     public void adicionarCatalogo(Catalogo obj) {
         obj.setLivraria(this);
-        this.catalogos.add(obj); //adicionando telefone na lista
+        this.catalogos.add(obj); //adicionando catalogo na lista
     }
 
     public void removerCatalogo(int index) {
@@ -106,5 +109,4 @@ public class Livraria implements Serializable {
     public void setCatalogos(List<Catalogo> catalogos) {
         this.catalogos = catalogos;
     }
-
 }

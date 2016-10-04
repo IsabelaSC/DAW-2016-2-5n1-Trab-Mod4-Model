@@ -1,13 +1,18 @@
 package br.edu.ifsul.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,8 +28,9 @@ import org.hibernate.validator.constraints.NotBlank;
 @Inheritance(strategy = InheritanceType.JOINED) //cada um tem sua tabela
 @Table(name = "livroBasico")
 public class LivroBasico implements Serializable {
+
     @Id
-    @Column(name = "isbn", nullable = false, unique = true)           
+    @Column(name = "isbn", nullable = false, unique = true)
     private String isbn; //string ñ utiliza sequence generator     
     @Length(max = 40, message = "O titulo não pode ter mais que {max} caracteres.")
     @NotNull(message = "O titulo não deve ser nulo.")
@@ -42,6 +48,15 @@ public class LivroBasico implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "dataPublicacao", nullable = false)
     private Calendar dataPublicacao;
+    @ManyToMany
+    @JoinTable(name = "autoria",
+            joinColumns
+            = @JoinColumn(name = "livroBasico", referencedColumnName = "isbn",
+                    nullable = false),
+            inverseJoinColumns
+            = @JoinColumn(name = "autor", referencedColumnName = "id",
+                    nullable = false))
+    private List<Autor> autorias = new ArrayList<>();
 
     public LivroBasico() {
     }
@@ -108,5 +123,12 @@ public class LivroBasico implements Serializable {
         return true;
     }
 
-    
+    public List<Autor> getAutorias() {
+        return autorias;
+    }
+
+    public void setAutorias(List<Autor> autorias) {
+        this.autorias = autorias;
+    }
+
 }

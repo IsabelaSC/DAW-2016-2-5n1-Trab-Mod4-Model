@@ -28,39 +28,32 @@ public class Livro extends LivroBasico implements Serializable {
     @NotBlank(message = "O codigo de barras não pode ser em branco.")
     @Column(name = "codigoBarras", nullable = false, length = 40)
     private String codigoBarras;
-
     @NotNull(message = "O numero de paginas não deve ser nulo.")
     @Column(name = "numeroPaginas", nullable = false, length = 5)
     private Integer numeroPaginas;
-
     @NotNull(message = "Ativo não pode ser nulo")
     @Column(name = "ativo", nullable = false)
     private Boolean ativo;
-
     @NotNull(message = "A data de cadastro deve ser informada.")
     @Temporal(TemporalType.DATE)
     @Column(name = "dataCadastro", nullable = false)
     private Calendar dataCadastro;
-
     @NotNull(message = "O valor não pode ser nulo.")
     @Min(value = 0, message = "O valor não pode ser negativo.")
     @Column(name = "valor", nullable = false, columnDefinition = "numeric(12,2)")
     private Double valor;
-
-    @NotNull(message = "O catalogo não pode ser nulo.")
-    @ManyToOne
-    @JoinColumn(name = "catalogo_id", referencedColumnName = "id", nullable = false)
-    private Catalogo catalogo;
-        
-    @NotNull(message = "O formato não pode ser nulo.")
-    @ManyToOne
-    @JoinColumn(name = "formato_id", referencedColumnName = "id", nullable = false)
-    private Formato formato;
-
     @NotNull(message = "O idioma não pode ser nulo.")
     @ManyToOne
     @JoinColumn(name = "idioma_id", referencedColumnName = "id", nullable = false)
     private Idioma idioma;
+    @NotNull(message = "O formato não pode ser nulo.")
+    @ManyToOne
+    @JoinColumn(name = "formato_id", referencedColumnName = "id", nullable = false)
+    private Formato formato;
+    @NotNull(message = "O catalogo não pode ser nulo.")
+    @ManyToOne
+    @JoinColumn(name = "catalogo_id", referencedColumnName = "id", nullable = false)
+    private Catalogo catalogo;
 
     public Livro() {
     }
@@ -127,12 +120,12 @@ public class Livro extends LivroBasico implements Serializable {
         return true;
     }
 
-    public Catalogo getCatalogo() {
-        return catalogo;
+    public Idioma getIdioma() {
+        return idioma;
     }
 
-    public void setCatalogo(Catalogo catalogo) {
-        this.catalogo = catalogo;
+    public void setIdioma(Idioma idioma) {
+        this.idioma = idioma;
     }
 
     public Formato getFormato() {
@@ -143,12 +136,11 @@ public class Livro extends LivroBasico implements Serializable {
         this.formato = formato;
     }
 
-    public Idioma getIdioma() {
-        return idioma;
+    public Catalogo getCatalogo() {
+        return catalogo;
     }
 
-    public void setIdioma(Idioma idioma) {
-        this.idioma = idioma;
+    public void setCatalogo(Catalogo catalogo) {
+        this.catalogo = catalogo;
     }
-
 }
